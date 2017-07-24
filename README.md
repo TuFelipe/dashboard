@@ -1,3 +1,5 @@
+![Screenshot](print.png)
+
 # dashboard
 
 > A Vue.js project
