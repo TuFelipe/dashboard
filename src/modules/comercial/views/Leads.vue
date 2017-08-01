@@ -1,7 +1,7 @@
 <template>
   <main class="mdl-layout__content mdl-color--grey-200">
     <div class="mdl-grid demo-content">
-      <h5>Leads</h5>
+        <h5>Leads</h5>
       <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
         <vue-chart type="horizontalBar" :data="chartData" :height="100"></vue-chart>
       </div>
@@ -47,35 +47,47 @@
 
 <script>
 import VueChart from 'vue-chart-js'
+import {HTTP} from './http-common'
 
 export default {
   components: {
     VueChart
   },
 
+  created() {
+    HTTP.get(`/`)
+    .then(response => {
+      this.posts = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+  },
+
   data: () => ({
+    posts: [],
+    errors: [],
     chartData: {
-        labels: ['Operador 1', 'Operador 2'],
+        labels: ['1','2'],
         datasets: [
             {
                 label: 'Component 1',
-                data: [16, 20],
+                data: [31, 20],
                 backgroundColor: ['rgba(18, 110, 135, 0.8)','rgba(18, 110, 135, 0.8)']
-
             },
             {
                 label: 'Component 2',
-                data: [25, 15],
+                data: [25, 30],
                 backgroundColor: ['rgba(242, 210, 18, 0.8)','rgba(242, 210, 18, 0.8)']
             },
             {
                 label: 'Component 3',
-                data: [20, 30],
+                data: [20, 15],
                 backgroundColor: ['rgba(217, 39, 39, 0.8)','rgba(217, 39, 39, 0.8)']
             }
         ]
     }
-  }),
+  })
 }
 </script>
 
